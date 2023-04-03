@@ -1,0 +1,177 @@
+div.li-container {
+    height: 100vh;
+    overflow: hidden;
+}
+
+nav.li-nav {
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 1% 0 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+nav.li-nav>a {
+    width: 135px;
+    height: 34px;
+}
+
+a.li-join {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 16px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-right: 12px;
+}
+
+a.li-join:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.li-sign-in {
+    box-shadow: inset 0 0 0 1px #0a66c2;
+    color: #0a66c2;
+    border-radius: 24px;
+    transition-duration: 167ms;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 40px;
+    padding: 10px 24px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+}
+
+a.li-sign-in:hover {
+    background-color: rgba(112, 181, 249, 0.15);
+    color: #0a66c2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+section.li-section {
+    display: flex;
+    flex-direction: row;
+    width: 1128px;
+    height: 85vh;
+    margin: 0 auto;
+}
+
+section.li-section .li-side-image {
+    display: flex;
+    align-items: end;
+    max-width: 40%;
+}
+
+.li-side-image img {
+    height: 80%;
+}
+
+div.li-hero {
+    width: 100%;
+}
+
+div.li-hero h1 {
+    padding-bottom: 0;
+    font-size: 60px;
+    color: #a97263;
+    font-weight: 100;
+    line-height: 70px;
+}
+
+.li-login-by-email {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin-top: 5vh;
+}
+
+.li-login-by-email img {
+    height: 60px;
+    width: 60px;
+    margin: 0 auto;
+}
+
+.li-login-by-email label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(0 0 0 / 70%);
+    margin-bottom: 8px;
+}
+
+.li-login-by-email input {
+    height: 6vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    font-size: 20px;
+}
+
+.li-login-by-email button {
+    height: 6vh;
+    border: none;
+    background-color: #0a66c2;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.li-login-by-email button:hover {
+    cursor: pointer;
+}
+
+.li-login-by-email button:active {
+    background-color: #1179e2;
+}
+
+span.error-alert {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    margin-top: 8px;
+    color: red;
+}
+
+
+@media (max-width: 768px) {
+    div.li-container {
+        overflow-y: auto;
+    }
+    nav.li-nav {
+        padding: 1.5%;
+    }
+    section.li-section {
+        flex-direction: column;
+        width: 100vw;
+    }
+    div.li-side-image img {
+        width: 100%;
+    }
+    div.li-hero h1 {
+        font-size: 40px;
+        padding: 1% 2%;
+        text-align: center;
+    }
+
+    div.li-login-by-email {
+        width: 75%;
+        margin: 0 auto;
+    }
+
+    div.li-side-image {
+        max-width: 100% !important;
+    }
+}

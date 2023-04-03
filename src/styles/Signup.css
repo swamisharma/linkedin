@@ -1,0 +1,143 @@
+div.su-main {
+    background-color: #efefef;
+    width: 100%;
+    height: 100vh;
+}
+
+nav.su-nav {
+    height: 10vh;
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 1% 0 2%;
+}
+
+nav.su-nav img {
+    height: 100%;
+}
+
+section {
+    max-width: 1128px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+}
+
+div.su-title {
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 2.5vh;
+    text-align: center;
+}
+
+div.su-sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 24px 8px;
+}
+
+div.su-sign-in span {
+    font-size: 10px;
+    color: rgb(72, 72, 72);
+    text-align: center;
+}
+
+div.su-sign-in label {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(0 0 0 / 70%);
+    margin-bottom: 6px;
+    align-self:flex-start;
+    margin-left: 10%;
+}
+
+div.su-sign-in input {
+    height: 5vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    font-size: 15px;
+    width: 80%;
+}
+
+div.su-sign-in button {
+    height: 6vh;
+    border: none;
+    background-color: #0a66c2;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    border-radius: 40px;
+    margin-top: 20px;
+    width: 80%;
+}
+
+div.su-sign-in button:hover {
+    cursor: pointer;
+}
+
+div.su-sign-in button:active {
+    background-color: #1179e2;
+}
+
+span.su-error-msg {
+    color: red;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.su-back-to-login {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+    margin-top: 5px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 5vh;
+    padding: 0.5% 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+footer img {
+    height: 100%;
+    margin-right: 1%;
+}
+
+@media (max-width: 768px){
+    nav.su-nav {
+        height: 8vh;
+        padding: 2%;
+    }
+
+    div.su-sign-in {
+        width: 80%;
+    }
+
+    div.su-sign-in label {
+        font-weight: 700;
+    }
+
+    div.su-sign-in span {
+        padding: 0 2%;
+    }
+
+    footer {
+        height: 3.5vh;
+    }
+}

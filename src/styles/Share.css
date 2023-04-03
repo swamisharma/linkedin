@@ -1,0 +1,86 @@
+div.share-container {
+    height: 116px;
+    background-color: #fff;
+    border: 1px solid #00000033 ;
+    border-radius: 6px;
+}
+
+.share-input {
+    display: flex;
+    align-items: center;
+    margin: 0.8rem 1.6rem 0;
+}
+
+.share-input img {
+    height: 48px;
+    height: 48px;
+    margin-right: 2.5%;
+    border-radius: 100%;
+}
+
+.share-input input {
+    height: 48px;
+    width: 95%;
+    border-radius: 48px;
+    border: 1px solid #3a3a3a88;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-weight: 500;
+}
+
+.share-input input:focus {
+    outline: none;
+}
+
+.share-input input:hover {
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+.share-input button {
+    padding: 3.3%;
+    margin-left: 2%;
+    width: 20%;
+    border-radius: 30px;
+    border: none;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #2985e2;
+    cursor: pointer;
+}
+
+.share-input button:active {
+    background-color: #2994ff;
+}
+
+.share-logo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    cursor: pointer;
+}
+
+li-icon svg[data-supported-dps="24x24"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: aqua;
+}
+
+div.share-box-feed-item {
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+    padding: 1.5% 2%;
+}
+
+div.share-box-feed-item:hover {
+    background-color: #e9e9e9;
+    border-radius: 4px;
+}
+
+div.share-box-feed-item span {
+    font-size: 14px;
+    margin-left: 8px;
+    color: #00000088;
+}
