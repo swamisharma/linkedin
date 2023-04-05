@@ -8,24 +8,24 @@ export default function Post(props) {
     const comments = cmmtTillNow.map((comment, index) => {
         return <Comment key={index} index={index} name={props.name} content={comment.content} />
     })
+    const [likesTillNow, setLikesTillNow] = useState(JSON.parse(localStorage.getItem("likes")));
+    const [likeClass, setLikeClass] = useState("like-button")
 
-    let likeBtn;
-    if (props.liked) {
-        likeBtn = (
-            <button className="like-button post-like" onClick={handleLike}>
-                <img src="/images/like.svg" alt="like" />
-                <span>Like</span>
-            </button>
-        )
-    }
-    else {
-        likeBtn = (
-            <button className="like-button" onClick={handleLike}>
-                <img src="/images/like.svg" alt="like" />
-                <span>Like</span>
-            </button>
-        )
-    }
+    useEffect(() => {
+
+        if (likesTillNow[props.index])
+            setLikeClass("like-button post-like")
+        else
+            setLikeClass("like-button")
+
+    }, [likesTillNow])
+
+    let likeBtn = (
+        <button className={likeClass} onClick={handleLike}>
+            <img src="/images/like.svg" alt="like" />
+            <span>Like</span>
+        </button>
+    );
 
     function handleComment() {
         const postsTillNow = JSON.parse(localStorage.getItem("allPosts"));
@@ -44,7 +44,8 @@ export default function Post(props) {
             likesTillNow[props.index] = 0;
         }
         localStorage.setItem("likes", JSON.stringify(likesTillNow));
-        document.querySelector(".like-button").classList.toggle("post-like");
+        setLikesTillNow(likesTillNow)
+        // document.querySelector(".like-button").classList.toggle("post-like");
     }
 
     return (
