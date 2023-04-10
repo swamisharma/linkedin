@@ -119,6 +119,11 @@ footer img {
     margin-right: 1%;
 }
 
+div.su-sign-in img{
+    height: 50px;
+    padding-top: 10px;
+}
+
 @media (max-width: 768px){
     nav.su-nav {
         height: 8vh;

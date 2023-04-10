@@ -45,7 +45,6 @@ export default function Post(props) {
         }
         localStorage.setItem("likes", JSON.stringify(likesTillNow));
         setLikesTillNow(likesTillNow)
-        // document.querySelector(".like-button").classList.toggle("post-like");
     }
 
     return (

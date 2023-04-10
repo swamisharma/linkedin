@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
-const Login = (props) => {
+const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        if (localStorage.getItem("loggedIn") === "true"){
+        if (localStorage.getItem("loggedIn") === "true") {
             navigate("/home");
         }
         else {
@@ -29,13 +29,15 @@ const Login = (props) => {
         setError("");
         setLoading(true);
 
-        signInWithEmailAndPassword(auth, values.email, values.password).then(async (res) => {
-            localStorage.setItem("loggedIn", "true");
-            navigate("/home");
-        }).catch((err) => {
-            setLoading(false)
-            setError("Incorrect Email or Password");
-        });
+        signInWithEmailAndPassword(auth, values.email, values.password)
+            .then(async (res) => {
+                localStorage.setItem("loggedIn", "true");
+                navigate("/home");
+            })
+            .catch((err) => {
+                setLoading(false)
+                setError("Incorrect Email or Password");
+            });
     };
 
     return (
@@ -58,7 +60,7 @@ const Login = (props) => {
                         <label>Password</label>
                         <input type="password" onChange={(e) => setValues((prev) => ({ ...prev, password: e.target.value }))} />
                         {!loading && <button onClick={handleSubmission}>Sign In</button>}
-                        {loading && <img src="/images/loading.gif"/>}
+                        {loading && <img src="/images/loading.gif" />}
                         <span className="error-alert">{error}</span>
                     </div>
                 </div>
