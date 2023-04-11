@@ -1,18 +1,17 @@
 import "../styles/Login.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { AuthContext } from "../context/MyProvider";
 
 const Login = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext)
     useEffect(() => {
-        if (localStorage.getItem("loggedIn") === "true") {
+        if (isLoggedIn) {
             navigate("/home");
-        }
-        else {
-            localStorage.setItem("loggedIn", "false");
         }
     })
     const [values, setValues] = useState({
@@ -30,8 +29,8 @@ const Login = () => {
         setLoading(true);
 
         signInWithEmailAndPassword(auth, values.email, values.password)
-            .then(async (res) => {
-                localStorage.setItem("loggedIn", "true");
+            .then(() => {
+                setIsLoggedIn(true);
                 navigate("/home");
             })
             .catch((err) => {

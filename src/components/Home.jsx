@@ -3,14 +3,21 @@ import Leftside from "./Leftside";
 import Main from "./Main";
 import Rightside from "./Rightside";
 import { auth } from "../firebase";
+import { useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Home = () => {
-    const user = auth.currentUser;
+    const [currUser, setCurrUser] = useState({displayName:""})
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setCurrUser(user);
+        }
+    });
     return (
         <div className="home-container">
             <div className="home-layout">
-                <Leftside name={user.displayName}/>
-                <Main name={user.displayName}/>
+                <Leftside name={currUser.displayName}/>
+                <Main name={currUser.displayName}/>
                 <Rightside />
             </div>
         </div>

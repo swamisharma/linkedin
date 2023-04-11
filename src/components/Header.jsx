@@ -1,20 +1,22 @@
 import "../styles/Header.css"
 import { auth } from "../firebase"
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/MyProvider";
 
 const Header = (props) => {
     const navigate = useNavigate();
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
     useEffect(() => {
-        if (localStorage.getItem("loggedIn") === "false"){
+        if (!isLoggedIn){
             navigate("/");
         }
     })
     function signOut() {
         auth.signOut().then(() => {
             // Sign-out successful.
-            localStorage.setItem("loggedIn", "false");
+            setIsLoggedIn(false);
             navigate("/")
         }).catch((error) => {
             // An error happened.
