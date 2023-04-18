@@ -62,9 +62,9 @@ export default function Signin() {
         </div>
         <div className="su-sign-in">
           <label>First name</label>
-          <input type="text" onChange={(e) => { setValues((prev) => ({ ...prev, fname: e.target.value })) }} />
+          <input type="text" onChange={(e) => { setValues((prev) => ({ ...prev, fname: e.target.value })) }} placeholder="Please add your real name" />
           <label>Last name</label>
-          <input type="text" onChange={(e) => { setValues((prev) => ({ ...prev, lname: e.target.value })) }} />
+          <input type="text" onChange={(e) => { setValues((prev) => ({ ...prev, lname: e.target.value })) }} placeholder="Please add your real name" />
           <label>Email</label>
           <input type="email" onChange={(e) => { setValues((prev) => ({ ...prev, email: e.target.value })) }} />
           <label>Password</label>

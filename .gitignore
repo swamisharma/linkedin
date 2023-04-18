@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 *.local
+firebaseUtil.js
 
 # Editor directories and files
 .vscode/*

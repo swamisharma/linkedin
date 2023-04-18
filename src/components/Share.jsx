@@ -1,23 +1,32 @@
 import "../styles/Share.css"
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { useState } from "react";
 
-export default function Share(props) {
-    function addTolocalStorage() {
-        const postsTillNow = JSON.parse(localStorage.getItem("allPosts"));
-        const likesTillNow = JSON.parse(localStorage.getItem("likes"));
-        postsTillNow.unshift({user: props.name, content: document.querySelector(".share-input input").value, comments: []});
-        likesTillNow.unshift(0);
-        localStorage.setItem("allPosts", JSON.stringify(postsTillNow));
-        localStorage.setItem("likes", JSON.stringify(likesTillNow));
-        document.querySelector(".share-input input").value = "";
-        props.setNoOfPosts((prev) => prev+1);
+export default function Share({name, setPosts}) {
+    const [postText, setPostText] = useState("");
+    async function addToFirestore() {
+        if (!postText) {
+            alert("Post cannot be empty");
+            return
+        }
+        const d = new Date().valueOf().toString();
+        await setDoc(doc(db, "posts", d), {
+            name: name,
+            content: postText,
+            comments: [],
+            likes: []
+        });
+        setPostText("");
+        setPosts(prev => !prev);
     }
 
     return (
         <div className="share-container">
             <div className="share-input">
                 <img src="/images/user.svg" alt="" />
-                <input type="text" placeholder="Start a post"/>
-                <button onClick={addTolocalStorage}>Post</button>
+                <input type="text" placeholder="Start a post" value={postText} onChange={(e) => setPostText(e.target.value)}/>
+                <button onClick={addToFirestore}>Post</button>
             </div>
             <div className="share-logo">
                 <div className="share-box-feed-item">
@@ -68,7 +77,3 @@ export default function Share(props) {
         </div>
     )
 }
-
-{/* <div className="share-box-feed">
-    
-</div> */}

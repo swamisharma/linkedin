@@ -1,50 +1,48 @@
 import { useEffect, useState } from "react"
 import "../styles/Post.css"
 import Comment from "./Comment"
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db, auth } from "../firebase";
 
 export default function Post(props) {
-    const [noOfComments, setNoOfComments] = useState(0);
-    const cmmtTillNow = JSON.parse(localStorage.getItem("allPosts"))[props.index].comments;
-    const comments = cmmtTillNow.map((comment, index) => {
-        return <Comment key={index} index={index} name={props.name} content={comment.content} />
+    const [isLiked, setIsLiked] = useState(props.like);
+    const [commentInput, setCommentInput] = useState("");
+    const [commentsTillNow, setCommentsTillNow] = useState(props.comments)
+    const [toggleComment, setToggleComment] = useState(false);
+    const comments = commentsTillNow.map((comment, index) => {
+        return <Comment key={index} index={index} name={comment.name} content={comment.content} />
     })
-    const [likesTillNow, setLikesTillNow] = useState(JSON.parse(localStorage.getItem("likes")));
-    const [likeClass, setLikeClass] = useState("like-button")
 
-    useEffect(() => {
+    let classListLike = isLiked ? "like-button post-like" : "like-button";
+    let classListComment = toggleComment ? "like-button post-like" : "like-button";
 
-        if (likesTillNow[props.index])
-            setLikeClass("like-button post-like")
-        else
-            setLikeClass("like-button")
-
-    }, [likesTillNow])
-
-    let likeBtn = (
-        <button className={likeClass} onClick={handleLike}>
-            <img src="/images/like.svg" alt="like" />
-            <span>Like</span>
-        </button>
-    );
-
-    function handleComment() {
-        const postsTillNow = JSON.parse(localStorage.getItem("allPosts"));
-        postsTillNow[props.index].comments.unshift({ name: props.name, content: document.querySelectorAll(".comment-input-bar input")[props.index].value });
-        localStorage.setItem("allPosts", JSON.stringify(postsTillNow));
-        document.querySelectorAll(".comment-input-bar input")[props.index].value = "";
-        setNoOfComments((prev) => prev + 1);
+    async function handleComment() {
+        if (!commentInput) {
+            alert("Comment cannot be empty");
+            return
+        }
+        const postRef = doc(db, "posts", props.index)
+        await updateDoc(postRef, {
+            comments: [{name: auth.currentUser.displayName, content: commentInput}, ...props.comments]
+        })
+        setCommentsTillNow(prev => {
+            return [{name: auth.currentUser.displayName, content: commentInput}, ...prev]
+        })
+        setCommentInput("")
     }
 
-    function handleLike() {
-        const likesTillNow = JSON.parse(localStorage.getItem("likes"));
-        if (!likesTillNow[props.index]) {
-            likesTillNow[props.index] = 1;
+    async function handleLike() {
+        setIsLiked(prev => !prev);
+        if (isLiked) {
+            await updateDoc(doc(db, "posts", props.index), {
+                likes: arrayRemove(auth.currentUser.uid)
+            })
         }
         else {
-            likesTillNow[props.index] = 0;
+            await updateDoc(doc(db, "posts", props.index), {
+                likes: arrayUnion(auth.currentUser.uid)
+            })
         }
-        localStorage.setItem("likes", JSON.stringify(likesTillNow));
-        setLikesTillNow(likesTillNow)
     }
 
     return (
@@ -58,7 +56,7 @@ export default function Post(props) {
                         <span className="user-name">{props.name}</span>
                         <span className="user-details">LinkedIn User</span>
                         <span className="post-description">
-                            <span>5d • </span>
+                            <span>1m • </span>
                             <img src="/images/globe.svg" />
                         </span>
                     </div>
@@ -71,8 +69,11 @@ export default function Post(props) {
                 <span>{props.content}</span>
             </div>
             <div className="post-reaction-buttons">
-                {likeBtn}
-                <button>
+                <button className={classListLike} onClick={handleLike} >
+                    <img src="/images/like.svg" alt="like" />
+                    <span>Like</span>
+                </button>
+                <button className={classListComment} onClick={() => setToggleComment(prev => !prev)}>
                     <img src="/images/comments.svg" alt="comment" />
                     <span>Comment</span>
                 </button>
@@ -81,12 +82,16 @@ export default function Post(props) {
                     <span>Send</span>
                 </button>
             </div>
-            <div className="comment-input-bar">
-                <img src="/images/user.svg" alt="" />
-                <input type="text" placeholder="Add a comment..." />
-                <button onClick={handleComment}>Comment</button>
-            </div>
-            {comments}
+            {toggleComment && <>
+                <div className="comment-input-bar">
+                    <img src="/images/user.svg" alt="" />
+                    <input type="text" placeholder="Add a comment..." value={commentInput} onChange={(e) => {
+                        setCommentInput(e.target.value)
+                    }} />
+                    <button onClick={handleComment}>Comment</button>
+                </div>
+                {comments}
+            </>}
         </div>
     )
 }
