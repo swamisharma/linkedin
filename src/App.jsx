@@ -19,6 +19,11 @@ function App() {
       path: "/home",
       element: <><Header /><Home /></>
     },
+    {
+      path: "/*",
+      element: <Login />
+    }
+    
   ]);
   return (
     <div className="App">

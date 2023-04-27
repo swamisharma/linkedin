@@ -6,6 +6,7 @@ import { db, auth } from "../firebase";
 
 export default function Post(props) {
     const [isLiked, setIsLiked] = useState(props.like);
+    const [likeCount, setLikeCount] = useState(props.likeCount); 
     const [commentInput, setCommentInput] = useState("");
     const [commentsTillNow, setCommentsTillNow] = useState(props.comments)
     const [toggleComment, setToggleComment] = useState(false);
@@ -34,15 +35,40 @@ export default function Post(props) {
     async function handleLike() {
         setIsLiked(prev => !prev);
         if (isLiked) {
+            setLikeCount(prev => prev-1);
             await updateDoc(doc(db, "posts", props.index), {
                 likes: arrayRemove(auth.currentUser.uid)
             })
         }
         else {
+            setLikeCount(prev => prev+1);
             await updateDoc(doc(db, "posts", props.index), {
                 likes: arrayUnion(auth.currentUser.uid)
             })
         }
+    }
+
+    const currTime = new Date().valueOf();
+    const postTime = parseInt(props.index);
+    const diff = (currTime-postTime)/1000;
+    let time;
+    if (diff < 3600) {
+        time = "1h";
+    } 
+    else if (diff < 86400) {
+        time = "1d";
+    }
+    else if (diff < 604800) {
+        time = "1w"
+    }
+    else if (diff < 18144000) {
+        time = "1m"
+    }
+    else if (diff < 217728000) {
+        time = "1y"
+    }
+    else {
+        time = "1y+"
     }
 
     return (
@@ -56,7 +82,7 @@ export default function Post(props) {
                         <span className="user-name">{props.name}</span>
                         <span className="user-details">LinkedIn User</span>
                         <span className="post-description">
-                            <span>1m • </span>
+                            <span>{`${time}`} • </span>
                             <img src="/images/globe.svg" />
                         </span>
                     </div>
@@ -71,7 +97,7 @@ export default function Post(props) {
             <div className="post-reaction-buttons">
                 <button className={classListLike} onClick={handleLike} >
                     <img src="/images/like.svg" alt="like" />
-                    <span>Like</span>
+                    <span>{likeCount > 0 ? likeCount : "Like"}</span>
                 </button>
                 <button className={classListComment} onClick={() => setToggleComment(prev => !prev)}>
                     <img src="/images/comments.svg" alt="comment" />

@@ -21,7 +21,7 @@ const Main = ({ currUser }) => {
     }, [addNewPost])
 
     const posts = postsTillNow.map((post) => {
-        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post.likes.includes(auth.currentUser.uid)} />
+        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post.likes.includes(auth.currentUser.uid)} likeCount={post.likes.length} />
     });
 
     return (

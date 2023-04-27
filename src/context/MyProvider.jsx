@@ -6,15 +6,19 @@ export const AuthContext = createContext(null);
 
 export default function MyProvider({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
             setIsLoggedIn(true);
         }
+        else {
+            setIsLoading(false);
+        }
     });
 
     return (
-        <AuthContext.Provider value = {{isLoggedIn, setIsLoggedIn}}>
+        <AuthContext.Provider value = {{isLoggedIn, setIsLoggedIn, isLoading}}>
             {children}
         </AuthContext.Provider>
     )

@@ -31,7 +31,8 @@ export default function Signin() {
       .then(async (res) => {
         const user = res.user;
         await updateProfile(user, {
-          displayName: `${values.fname} ${values.lname}`,
+          displayName: `${values.fname.charAt(0).toUpperCase() + values.fname.slice(1)} 
+                          ${values.lname.charAt(0).toUpperCase() + values.lname.slice(1)}`,
         });
         
         await setDoc(doc(db, "users", user.uid), {
