@@ -1,0 +1,18 @@
+.uc-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 40%;
+}
+
+.uc-imgdiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.uc-imgdiv img {
+    width: 80%;
+}

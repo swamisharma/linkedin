@@ -2,17 +2,11 @@ import "../styles/Home.css";
 import Leftside from "./Leftside";
 import Main from "./Main";
 import Rightside from "./Rightside";
-import { auth } from "../firebase";
-import { useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { AuthContext } from "../context/MyProvider";
+import { useContext } from "react";
 
 const Home = () => {
-    const [currUser, setCurrUser] = useState({displayName:"", uid:""})
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setCurrUser(user);
-        }
-    });
+    const {currUser} = useContext(AuthContext);
     return (
         <div className="home-container">
             <div className="home-layout">

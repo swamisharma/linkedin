@@ -1,24 +1,29 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useState } from "react"
 import { auth } from "../firebase";
+import { useEffect } from "react";
 
 export const AuthContext = createContext(null);
 
 export default function MyProvider({children}) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setIsLoggedIn(true);
-        }
-        else {
-            setIsLoading(false);
-        }
-    });
+    const [currUser, setCurrUser] = useState({displayName:"", uid:""})
+    
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setCurrUser({displayName: user.displayName, uid: user.uid});
+                setIsLoggedIn(true);
+            }
+            else {
+                setIsLoading(false);
+            }
+        });
+    }, []);
 
     return (
-        <AuthContext.Provider value = {{isLoggedIn, setIsLoggedIn, isLoading}}>
+        <AuthContext.Provider value = {{isLoggedIn, setIsLoggedIn, isLoading, currUser}}>
             {children}
         </AuthContext.Provider>
     )

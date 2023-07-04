@@ -2,12 +2,19 @@ import "../styles/Main.css"
 import { useEffect, useState } from "react";
 import Post from "./Post"
 import Share from "./Share"
-import { auth, db } from "../firebase.js";
-import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase.js";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 
 const Main = ({ currUser }) => {
     const [postsTillNow, setPostsTillNow] = useState([]);
     const [addNewPost, setAddNewPost] = useState(false);
+    const [following, setFollowing] = useState([]);
+
+    async function getUsers(){
+        const docRef = doc(db, "users", currUser.uid);
+        const docFollowList = await getDoc(docRef);
+        setFollowing(docFollowList.data().following);
+    }
 
     useEffect(() => {
         const dataArr = []
@@ -20,8 +27,12 @@ const Main = ({ currUser }) => {
             });
     }, [addNewPost])
 
-    const posts = postsTillNow.map((post) => {
-        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post.likes.includes(auth.currentUser.uid)} likeCount={post.likes.length} />
+    useEffect(() => {
+        if (currUser.uid) getUsers()
+    }, [currUser])
+
+    const posts = postsTillNow.filter(post => following.includes(post.uid)).map((post) => {
+        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post.likes.includes(currUser.uid)} likeCount={post.likes.length} />
     });
 
     return (

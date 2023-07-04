@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/Leftside.css";
 
 const Leftside = (props) => {
@@ -15,13 +16,13 @@ const Leftside = (props) => {
                     </a>
                 </div>
                 <div className="ls-widget">
-                    <a>
+                    <Link to="/network">
                         <div>
                             <span>Connections</span>
                             <span>Grow your network</span>
                         </div>
                         <img src="/images/widget-icon.svg" alt="" />
-                    </a>
+                    </Link>
                 </div>
                 <a className="ls-item">
                     <span>

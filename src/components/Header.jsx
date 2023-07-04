@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/MyProvider";
 
-const Header = (props) => {
+const Header = () => {
+    const currTab = window.location.pathname.substring(1);
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
@@ -28,7 +29,7 @@ const Header = (props) => {
         <div className="hd-container">
             <div className="hd-content">
                 <span className="hd-logo">
-                    <Link href="/home">
+                    <Link to="/home">
                         <img src="/images/home-logo.svg" alt="" />
                     </Link>
                 </span>
@@ -42,36 +43,36 @@ const Header = (props) => {
                 </div>
                 <nav className="hd-nav">
                     <ul className="hd-nav-list-wrap">
-                        <li className="hd-active hd-nav-list">
-                            <Link>
+                        <li className={currTab==="home" ? "hd-active hd-nav-list" : "hd-nav-list"}>
+                            <Link to="/home">
                                 <img src="/images/nav-home.svg" alt="" />
                                 <span>Home</span>
                             </Link>
                         </li>
 
-                        <li className="hd-nav-list">
-                            <Link>
+                        <li className={currTab==="network" ? "hd-active hd-nav-list" : "hd-nav-list"}>
+                            <Link to="/network" >
                                 <img src="/images/nav-network.svg" alt="" />
                                 <span>My Network</span>
                             </Link>
                         </li>
 
-                        <li className="hd-nav-list">
-                            <Link>
+                        <li className={currTab==="jobs" ? "hd-active hd-nav-list" : "hd-nav-list"}>
+                            <Link to="/jobs">
                                 <img src="/images/nav-jobs.svg" alt="" />
                                 <span>Jobs</span>
                             </Link>
                         </li>
 
-                        <li className="hd-nav-list">
-                            <Link>
+                        <li className={currTab==="messaging" ? "hd-active hd-nav-list" : "hd-nav-list"}>
+                            <Link to="/messaging">
                                 <img src="/images/nav-messaging.svg" alt="" />
                                 <span>Messaging</span>
                             </Link>
                         </li>
 
-                        <li className="hd-nav-list">
-                            <Link>
+                        <li className={currTab==="notification" ? "hd-active hd-nav-list" : "hd-nav-list"}>
+                            <Link to="/notification">
                                 <img src="/images/nav-notifications.svg" alt="" />
                                 <span>Notifications</span>
                             </Link>
