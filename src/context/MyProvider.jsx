@@ -12,7 +12,7 @@ export default function MyProvider({children}) {
     
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if (user && user.displayName && user.uid) {
                 setCurrUser({displayName: user.displayName, uid: user.uid});
                 setIsLoggedIn(true);
             }

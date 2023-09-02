@@ -6,6 +6,8 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import Network from "./components/Network";
 import Underconstruction from "./components/Underconstruction";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +48,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }

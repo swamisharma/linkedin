@@ -31,8 +31,8 @@ const Main = ({ currUser }) => {
         if (currUser.uid) getUsers()
     }, [currUser])
 
-    const posts = postsTillNow.filter(post => following.includes(post.uid)).map((post) => {
-        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post.likes.includes(currUser.uid)} likeCount={post.likes.length} />
+    const posts = postsTillNow.filter(post => following?.includes(post.uid)).map((post) => {
+        return <Post key={post.id} index={post.id} name={post.name} content={post.content} comments={post.comments} like={post?.likes.includes(currUser.uid)} likeCount={post.likes.length} />
     });
 
     return (

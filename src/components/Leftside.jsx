@@ -9,7 +9,7 @@ const Leftside = (props) => {
                     <div className="ls-card-background" />
                     <a>
                         <div className="ls-photo" />
-                        <div className="ls-link">Welcome, {props.name.split(" ")[0]}!</div>
+                        <div className="ls-link">Welcome, {props.name?.length > 0 ? props.name.split(" ")[0] : ""}!</div>
                     </a>
                     <a>
                         <div className="ls-add-photo-text">Add a photo</div>

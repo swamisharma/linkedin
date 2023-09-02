@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 import { db } from '../firebase'
 import { doc, setDoc } from "firebase/firestore"; 
+import { toast } from "react-toastify";
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -31,20 +32,24 @@ export default function Signin() {
       .then(async (res) => {
         const user = res.user;
         await updateProfile(user, {
-          displayName: `${values.fname.charAt(0).toUpperCase() + values.fname.slice(1)} 
-                          ${values.lname.charAt(0).toUpperCase() + values.lname.slice(1)}`,
+          displayName: `${values.fname.charAt(0).toUpperCase() + values.fname.slice(1)} ${values.lname.charAt(0).toUpperCase() + values.lname.slice(1)}`,
         });
         
         await setDoc(doc(db, "users", user.uid), {
           name: user.displayName,
           email: user.email,
-          likes: []
+          likes: [],
+          following: ['5cHH7lNxnUctePGYk2LFf8B188u2']
         });
         
+        toast.success("Account created successfully! Please login.");
         setLoading(false);
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000);
+      })
+      .then(() => {
+        auth.signOut().then(() => {
+          // Sign-out successful.
+          navigate("/");
+        })
       })
       .catch((err) => {
         setError(err.message);
